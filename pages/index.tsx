@@ -1,14 +1,33 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import Login from "@/components/Login";
+// import SignInGithub from "@/components/SignInGithub";
+import Signup from "@/components/Signup";
+import { authUser } from "@/components/atom/auth";
+import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Layout from "@/components/Layout";
 
-const inter = Inter({ subsets: ["latin"] });
+const Home = () => {
+  const router = useRouter();
+  const { isLogin } = useRecoilValue(authUser);
 
-export default function Home() {
+  // ログイン時にチャットページに遷移
+  useEffect(() => {
+    isLogin && router.push("/chat");
+  }, [isLogin, router]);
+
   return (
-    <>
-      <div>ああ</div>
-    </>
+    <Layout>
+      <Signup />
+      <Login />
+    </Layout>
   );
+};
+
+export default Home;
+
+{
+  /* <p>or</p>
+          Githubで簡単サインイン
+          <SignInGithub /> */
 }

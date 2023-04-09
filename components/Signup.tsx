@@ -35,14 +35,14 @@ const Signup = () => {
   return (
     <div>
       <h2>ユーザー登録</h2>
-      <form onSubmit={signUpWithEmail}>
+      <form onSubmit={signUpWithEmail} autoComplete="off">
         <div>
           <label htmlFor="signup_email">メールアドレス</label>
           <input type="email" placeholder="メールアドレスを入力してください" id="email" value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />
         </div>
         <div>
           <label htmlFor="password">パスワード</label>
-          <input type="password" placeholder="パスワードを入力してください" id="password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
+          <input type="password" placeholder="パスワードを入力してください" id="password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} autoComplete="off" />
         </div>
         <button type="submit" disabled={loading}>
           {loading ? "ローディング..." : "登録"}

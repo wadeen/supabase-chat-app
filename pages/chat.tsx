@@ -9,6 +9,8 @@ import { useRecoilValue } from "recoil";
 const Chat = () => {
   const { isLogin } = useRecoilValue(authUser);
 
+  console.log("isLogin, chat: ", isLogin);
+
   const router = useRouter();
 
   // ログインしていない場合はログインページに遷移

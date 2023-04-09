@@ -1,7 +1,6 @@
 import { useRecoilValue } from "recoil";
 import LogoutButton from "./LogoutButton";
 import { authUser } from "./atom/auth";
-import Link from "next/link";
 
 type Props = {
   children: React.ReactNode;

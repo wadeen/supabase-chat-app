@@ -1,17 +1,13 @@
 import supabase from "@/lib/supabase";
 // import { useRouter } from "next/router";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authUser } from "./atom/auth";
 
 const SignInGithub = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const router = useRouter();
-  const [isLogin, setIsLogin] = useRecoilState(authUser);
+  const setIsLogin = useSetRecoilState(authUser);
 
   const signInWithGithub = async () => {
     try {
@@ -20,11 +16,16 @@ const SignInGithub = () => {
         setError(error.message);
       } else {
         // ログイン成功時の処理
-        // router.push("/chat");
-        setIsLogin({ isLogin: false });
+        setIsLogin({ isLogin: true });
       }
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else if (typeof error === "string") {
+        setError(error);
+      } else {
+        console.error("ログインに失敗しました。");
+      }
     }
   };
   return (

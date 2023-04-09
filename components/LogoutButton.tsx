@@ -1,9 +1,9 @@
 import supabase from "@/lib/supabase";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authUser } from "./atom/auth";
 
 const LogoutButton = () => {
-  const [isLogin, setIsLogin] = useRecoilState(authUser);
+  const setIsLogin = useSetRecoilState(authUser);
 
   const handleLogout = async () => {
     try {
@@ -13,14 +13,19 @@ const LogoutButton = () => {
       } else {
         // ログアウト成功時の処理
         setIsLogin({ isLogin: false });
-        alert("ログアウトしました");
       }
-    } catch (error: any) {
-      console.error("Logout error:", error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      } else if (typeof error === "string") {
+        console.error(error);
+      } else {
+        console.error("ログアウトに失敗しました。");
+      }
     }
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return <button onClick={handleLogout}>ログアウト</button>;
 };
 
 export default LogoutButton;

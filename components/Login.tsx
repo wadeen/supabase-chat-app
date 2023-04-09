@@ -46,7 +46,7 @@ const Login = () => {
         </div>
         <div>
           <label htmlFor="login_password">パスワード</label>
-          <input type="password" placeholder="パスワードを入力してください" id="login_password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} />
+          <input type="password" placeholder="パスワードを入力してください" id="login_password" value={password} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} autoComplete="off" />
         </div>
         <button type="submit" disabled={loading}>
           {loading ? "ログイン中..." : "ログイン"}

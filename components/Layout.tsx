@@ -1,13 +1,12 @@
-import { useRecoilValue } from "recoil";
 import LogoutButton from "./LogoutButton";
-import { authUser } from "./atom/auth";
+import useAuth from "@/hooks/useAuth";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Layout = ({ children }: Props) => {
-  const { isLogin } = useRecoilValue(authUser);
+  const { session: isLogin } = useAuth();
 
   return (
     <>

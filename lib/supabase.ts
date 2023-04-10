@@ -1,6 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
-export type Database = {};
+export type Database = {
+  id: string;
+  createdAt: string;
+  userEmail: string;
+  message: string;
+};
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_API_KEY!;

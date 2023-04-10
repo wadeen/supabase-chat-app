@@ -1,45 +1,24 @@
 import { useState } from "react";
-import supabase from "@/lib/supabase";
-import { useSetRecoilState } from "recoil";
-import { authUser } from "./atom/auth";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const setIsLogin = useSetRecoilState(authUser);
 
-  const signInWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
+  const { signInWithEmail, loading, error } = useAuth();
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message);
-      } else {
-        // ログイン成功時の処理
-        setIsLogin({ isLogin: true });
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else if (typeof error === "string") {
-        setError(error);
-      } else {
-        console.error("ログインに失敗しました。");
-      }
-    } finally {
-      setLoading(false);
-    }
+  // ログイン処理
+  const onSubmitLoginForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    signInWithEmail(email, password);
+    console.log("error: ", error);
   };
 
   return (
     <div>
       <h2>ログイン</h2>
       <p>メールアドレスでログインする</p>
-      <form onSubmit={signInWithEmail}>
+      <form onSubmit={onSubmitLoginForm}>
         <div>
           <label htmlFor="login_email">メールアドレス</label>
           <input type="email" placeholder="メールアドレスを入力してください" id="login_email" value={email} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} />

@@ -13,12 +13,12 @@ export const fetchDatabase = async () => {
   }
 };
 
+type InsertProps = Pick<Database, "message" | "nickName" | "avatarUrl">;
+
 // データの追加
-export const addSupabaseData = async ({ message }: { message: Database["message"] }) => {
+export const addSupabaseData = async ({ message, avatarUrl, nickName }: InsertProps) => {
   try {
-    const { data: userData } = await supabase.auth.getUser();
-    const userEmail = userData?.user?.email; // ログインしているユーザーのメールアドレス
-    await supabase.from(TABLE_NAME).insert({ message, userEmail });
+    await supabase.from(TABLE_NAME).insert({ message, avatarUrl, nickName });
   } catch (error) {
     console.error(error);
   }

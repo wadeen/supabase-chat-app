@@ -3,8 +3,9 @@ import { createClient } from "@supabase/supabase-js";
 export type Database = {
   id: string;
   createdAt: string;
-  userEmail: string;
   message: string;
+  nickName: string;
+  avatarUrl: string;
 };
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

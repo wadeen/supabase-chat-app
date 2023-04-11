@@ -69,10 +69,12 @@ const ChatApp = () => {
       {messageText.map((item) => (
         <div key={item.id} data-user-id={item.nickName}>
           <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {item.avatarUrl ? <img src={item.avatarUrl} alt="アイコン" width={80} height={80} /> : <Image src="/noimage.png" alt="no image" width={80} height={80} />}
-            {item.createdAt}
-            <p>{item.nickName ? item.nickName : "名無し"}</p>
+            <a href={`https://github.com/${item.nickName}`} target="_blank" rel="noopener noreferrer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {item.avatarUrl ? <img src={item.avatarUrl} alt="アイコン" width={80} height={80} /> : <Image src="/noimage.png" alt="no image" width={80} height={80} />}
+              <p>{item.nickName ? item.nickName : "名無し"}</p>
+            </a>
+            <p>{item.createdAt}</p>
           </div>
           <p>{item.message}</p>
         </div>

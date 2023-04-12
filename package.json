@@ -9,16 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
     "@supabase/supabase-js": "^2.14.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
+    "dayjs": "^1.11.7",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "happy-css-modules": "^2.1.0",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sass": "^1.62.0",
     "typescript": "5.0.3"
   }
 }

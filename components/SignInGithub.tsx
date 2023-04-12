@@ -36,5 +36,6 @@ const wrapper = css`
     font-weight: 700;
     border: none;
     cursor: pointer;
+    border-radius: 6px;
   }
 `;

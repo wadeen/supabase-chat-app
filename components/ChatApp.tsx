@@ -87,7 +87,7 @@ const ChatApp = () => {
       ))}
 
       <form onSubmit={onSubmitNewMessage} css={formArea}>
-        <input type="text" name="chat_message" value={inputText} onChange={onChangeInputText} aria-label="新規メッセージを入力" />
+        <input type="text" name="message" value={inputText} onChange={onChangeInputText} aria-label="新規メッセージを入力" />
         <button type="submit" disabled={inputText === ""}>
           送信
         </button>

@@ -1,7 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { Database } from "@/lib/supabase";
-import { TABLE_NAME, addSupabaseData, fetchDatabase } from "@/lib/supabaseFunctions";
+import {
+  TABLE_NAME,
+  addSupabaseData,
+  fetchDatabase,
+} from "@/lib/supabaseFunctions";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import Image from "next/image";
@@ -33,8 +37,12 @@ const ChatApp = () => {
           (payload) => {
             // データ登録
             if (payload.eventType === "INSERT") {
-              const { createdAt, id, message, avatarUrl, nickName } = payload.new;
-              setMessageText((messageText) => [...messageText, { createdAt, id, message, avatarUrl, nickName }]);
+              const { createdAt, id, message, avatarUrl, nickName } =
+                payload.new;
+              setMessageText((messageText) => [
+                ...messageText,
+                { createdAt, id, message, avatarUrl, nickName },
+              ]);
             }
           }
         )
@@ -57,7 +65,8 @@ const ChatApp = () => {
   }, []);
 
   // 入力したメッセージ
-  const onChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) => setInputText(() => event.target.value);
+  const onChangeInputText = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setInputText(() => event.target.value);
 
   // メッセージの送信
   const onSubmitNewMessage = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,27 +76,58 @@ const ChatApp = () => {
     setInputText("");
   };
 
+  console.log(messageText);
   return (
     <div css={wrapper}>
-      {messageText.map((item) => (
-        // 自分のチャットの時は右側に表示
-        <div key={item.id} data-my-chat={item.nickName === profileFromGithub.nickName} css={chatWrapper}>
-          <div css={chatProfile}>
-            <time>{dateToString(item.createdAt, "MM/DD HH:mm")}</time>
-            <a href={`https://github.com/${item.nickName}`} target="_blank" rel="noopener noreferrer" css={chatLink}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              {item.avatarUrl ? <img src={item.avatarUrl} alt="アイコン" width={80} height={80} /> : <Image src="/noimage.png" alt="no image" width={80} height={80} />}
-              <p>{item.nickName ? item.nickName : "名無し"}</p>
-            </a>
+      {messageText &&
+        messageText.map((item) => (
+          // 自分のチャットの時は右側に表示
+          <div
+            key={item.id}
+            data-my-chat={item.nickName === profileFromGithub.nickName}
+            css={chatWrapper}
+          >
+            <div css={chatProfile}>
+              <time>{dateToString(item.createdAt, "MM/DD HH:mm")}</time>
+              <a
+                href={`https://github.com/${item.nickName}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                css={chatLink}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                {item.avatarUrl ? (
+                  <img
+                    src={item.avatarUrl}
+                    alt="アイコン"
+                    width={80}
+                    height={80}
+                  />
+                ) : (
+                  <Image
+                    src="/noimage.png"
+                    alt="no image"
+                    width={80}
+                    height={80}
+                  />
+                )}
+                <p>{item.nickName ? item.nickName : "名無し"}</p>
+              </a>
+            </div>
+            <div css={chatMessage}>
+              <p>{item.message}</p>
+            </div>
           </div>
-          <div css={chatMessage}>
-            <p>{item.message}</p>
-          </div>
-        </div>
-      ))}
+        ))}
 
       <form onSubmit={onSubmitNewMessage} css={formArea}>
-        <input type="text" name="message" value={inputText} onChange={onChangeInputText} aria-label="新規メッセージを入力" />
+        <input
+          type="text"
+          name="message"
+          value={inputText}
+          onChange={onChangeInputText}
+          aria-label="新規メッセージを入力"
+        />
         <button type="submit" disabled={inputText === ""}>
           送信
         </button>

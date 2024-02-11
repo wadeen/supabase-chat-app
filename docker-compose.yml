@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:
+    container_name: supabase_chat_app
+    build: .
+    command: yarn dev
+    stdin_open: true
+    tty: true
+    # environment:
+    #   NEXT_PUBLIC_ENDPOINT: "http://localhost:3000"
+    volumes:
+      - .:/var/www
+    ports:
+      - "3000:3000"
+    networks:
+      - supabase_chat_app_network
+
+networks:
+  supabase_chat_app_network:
